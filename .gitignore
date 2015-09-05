@@ -2,6 +2,7 @@ build/*
 .gradle/*
 eclipse/*
 out/*
+run/*
 forge-*-changelog.txt
 
 *.iml
@@ -20,28 +21,6 @@ hs_err_pid*
 # =========================
 # Operating System Files
 # =========================
-
-# OSX
-# =========================
-
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes
-
-# Directories potentially created on remote AFP share
-.AppleDB
-.AppleDesktop
-Network Trash Folder
-Temporary Items
-.apdisk
-
 # Windows
 # =========================
 
@@ -63,4 +42,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-src/main/java/net.stegr.repackage.cofh/api/world/IFeatureParser.java
