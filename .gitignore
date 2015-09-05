@@ -2,7 +2,6 @@ build/*
 .gradle/*
 eclipse/*
 out/*
-run/*
 forge-*-changelog.txt
 
 *.iml
