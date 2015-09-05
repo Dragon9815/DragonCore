@@ -1,43 +1,18 @@
-build/*
-.gradle/*
-eclipse/*
-out/*
-forge-*-changelog.txt
+/*
 
-*.iml
-*.ipr
-*.iws
+# Gradle files
+!gradle/
+!build.gradle
+!gradle.properties
+!gradlew
+!gradlew.bat
 
+# Important Files
+!README.md
+!LICENSE
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# Source Files
+!src
 
-# Package Files #
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
-# =========================
-# Operating System Files
-# =========================
-# Windows
-# =========================
-
-# Windows image file caches
-Thumbs.db
-ehthumbs.db
-
-# Folder config file
-Desktop.ini
-
-# Recycle Bin used on file shares
-$RECYCLE.BIN/
-
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# Windows shortcuts
-*.lnk
+# Git Files
+!.gitignore

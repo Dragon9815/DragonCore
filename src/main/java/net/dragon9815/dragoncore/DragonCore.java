@@ -1,4 +1,4 @@
-package net.dragon9815.dragoncore.core;
+package net.dragon9815.dragoncore;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -6,6 +6,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.dragon9815.dragoncore.handler.ConfigurationHandler;
+import net.dragon9815.dragoncore.helpers.LogHelper;
 import net.dragon9815.dragoncore.init.ModBlocks;
 import net.dragon9815.dragoncore.init.ModItems;
 import net.dragon9815.dragoncore.init.ModTileEntities;

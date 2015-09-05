@@ -10,13 +10,9 @@ import java.util.*;
 public class UpgradeRegistry {
     private static UpgradeRegistry INSTANCE = null;
     private List<ItemUpgrade> registeredUpgrades;
-    private Map<String, List<ItemStack>> validMachineUpgrades;
-    private Map<String, BlockUpgradeable> registeredMachines;
 
     public UpgradeRegistry() {
         registeredUpgrades = new LinkedList<ItemUpgrade>();
-        validMachineUpgrades = new HashMap<String, List<ItemStack>>();
-        registeredMachines = new HashMap<String, BlockUpgradeable>();
     }
 
     public static UpgradeRegistry instance() {
@@ -51,71 +47,5 @@ public class UpgradeRegistry {
         }
 
         return null;
-    }
-
-    public void registerMachine(BlockUpgradeable machine, String name) {
-        if (!this.registeredMachines.containsKey(name)) {
-            this.registeredMachines.put(name, machine);
-        } else {
-            LogHelper.warn("Machine already registered! " + ((BlockUpgradeable) machine).getLocalizedName());
-        }
-    }
-
-    public BlockUpgradeable getMachine(String name) {
-        return this.registeredMachines.get(name);
-    }
-
-    public void addValidUpgradeToMachine(String name, ItemUpgrade upgrade, int num) {
-        ItemStack upgradeStack = new ItemStack(upgrade, num);
-
-        List<ItemStack> upgradeStacks = this.validMachineUpgrades.get(name);
-
-        if (upgradeStacks == null) {
-            upgradeStacks = new ArrayList<ItemStack>();
-        }
-
-        upgradeStacks.add(upgradeStack);
-
-        this.validMachineUpgrades.put(name, upgradeStacks);
-    }
-
-    public void addValidUpgradesToMachine(String name, ItemStack[] upgrades) {
-        List<ItemStack> upgradeStacks = this.validMachineUpgrades.get(name);
-
-        if (upgradeStacks == null) {
-            upgradeStacks = new ArrayList<ItemStack>();
-        }
-
-        for (ItemStack upgradeStack : upgrades) {
-            upgradeStacks.add(upgradeStack);
-        }
-
-        this.validMachineUpgrades.put(name, upgradeStacks);
-    }
-
-    public ItemStack[] getValidUpgradesForMachine(String name) {
-        List<ItemStack> upgradeStacks = this.validMachineUpgrades.get(name);
-
-        if (upgradeStacks == null) {
-            upgradeStacks = new ArrayList<ItemStack>();
-        }
-
-        return upgradeStacks.toArray(new ItemStack[upgradeStacks.size()]);
-    }
-
-    public int getNumUpgradesValidForMachine(String upgradeName, String machineName) {
-        if (!this.isRegistered(upgradeName)) {
-            return 0;
-        }
-
-        ItemStack[] stacks = this.getValidUpgradesForMachine(machineName);
-
-        for (ItemStack stack : stacks) {
-            if (stack.getItem() instanceof ItemUpgrade && stack.getItem().equals(this.getUpgrade(upgradeName))) {
-                return stack.stackSize;
-            }
-        }
-
-        return 0;
     }
 }

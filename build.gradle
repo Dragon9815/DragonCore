@@ -19,6 +19,10 @@ apply plugin: 'forge'
 
 logger.lifecycle "Build number: ${artifactBuildNumber}"
 
+if (hasProperty("teamcity")) {
+    artifactBuildNumber = teamcity["build.number"]
+}
+
 version = "${minecraft_version}-${artifactMajorVersion}-${artifactBuildNumber}"
 group = "net.dragon9815.dragoncore" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "DragonCore"

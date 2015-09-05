@@ -1,6 +1,6 @@
 package net.dragon9815.dragoncore.item.itemblock;
 
-import net.dragon9815.dragoncore.registry.UpgradeRegistry;
+import net.dragon9815.dragoncore.block.BlockUpgradeable;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,7 +16,7 @@ public abstract class ItemBlockUpgradeable extends ItemBlockBase {
 
     @Override
     protected void addExtraInfo(ItemStack stack, EntityPlayer player, List tooltips, boolean par4) {
-        ItemStack[] upgradeStacks = UpgradeRegistry.instance().getValidUpgradesForMachine(this.getMachineName());
+        ItemStack[] upgradeStacks = ((BlockUpgradeable)this.field_150939_a).getValidUpgrades();
 
         /*if(upgradeStacks != null && upgradeStacks.length > 0)
         {
