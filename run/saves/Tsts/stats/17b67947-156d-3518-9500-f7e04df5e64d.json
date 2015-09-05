@@ -1,0 +1,14 @@
+{
+  "stat.flyOneCm": 3320,
+  "stat.walkOneCm": 2036,
+  "stat.jump": 10,
+  "stat.playOneMinute": 846,
+  "achievement.openInventory": 1,
+  "stat.fallOneCm": 422,
+  "achievement.exploreAllBiomes": {
+    "value": 0,
+    "progress": [
+      "Plains"
+    ]
+  }
+}

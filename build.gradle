@@ -1,0 +1,108 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+        maven {
+            name = "sonatype"
+            url = "https://oss.sonatype.org/content/repositories/snapshots/"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+    }
+}
+
+apply plugin: 'forge'
+
+logger.lifecycle "Build number: ${artifactBuildNumber}"
+
+version = "${minecraft_version}-${artifactMajorVersion}-${artifactBuildNumber}"
+group = "net.dragon9815.dragoncore" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = "DragonCore"
+
+minecraft {
+    version = "1.7.10-10.13.4.1448-1.7.10"
+	
+	replaceIn "Reference.java"
+	replace "@version@", artifactMajorVersion
+	
+    runDir = "run"
+}
+
+repositories {
+    maven { // The repo from which to get waila
+        name "Mobius Repo"
+        url "http://mobiusstrip.eu/maven"
+    }
+}
+dependencies {
+    compile("mcp.mobius.waila:Waila:${waila_version}_${minecraft_version}:dev") {
+        exclude group: 'mcp.mobius.waila'
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs += 'src/main/java/'
+        }
+
+        resources {
+            srcDir "src/main/resources/"
+            include "assets/dragoncore/lang/*.lang",
+                    "mcmod.info"
+        }
+    }
+}
+
+processResources
+{
+	// replace stuff in mcmod.info, nothing else
+	from(sourceSets.main.resources.srcDirs) {
+		include 'mcmod.info'
+		expand "version": project.version
+	}
+}
+
+task devJar(type: Jar, dependsOn: 'jar') {
+
+    from(sourceSets.main.output) {
+        include "net/**"
+        include "assets/**"
+        include 'mcmod.info'
+    }
+
+    classifier = 'dev'
+}
+
+task increaseBuildNumber << {
+    Properties props = new Properties()
+    File propsFile = new File('gradle.properties')
+    props.load(propsFile.newDataInputStream())
+
+    Integer next_buildnumber = ((props.getProperty('artifactBuildNumber') as BigDecimal) + 1)
+    props.setProperty('artifactBuildNumber', next_buildnumber.toString())
+
+    props.store(propsFile.newWriter(), null)
+}
+
+task resetBuildNumber << {
+    Properties props = new Properties()
+    File propsFile = new File('gradle.properties')
+    props.load(propsFile.newDataInputStream())
+
+    Integer next_buildnumber = 0
+    props.setProperty('artifactBuildNumber', next_buildnumber.toString())
+
+    props.store(propsFile.newWriter(), null)
+}
+
+artifacts {
+    archives devJar
+}
+
+//tasks.build.dependsOn('devJar')
+tasks.build.dependsOn('increaseBuildNumber')
